@@ -1,12 +1,18 @@
 #!/bin/bash
-API="https://charleston-friendship-contributors-wallpapers.trycloudflare.com"
-echo "=== x402 API cURL Examples ==="
-echo -e "\n1. GitHub Trending:"
-curl -s "$API/api/github/trending?language=python" | head -c 300
-echo -e "\n\n2. NPM Stats:"
-curl -s "$API/api/npm/stats?package=express" | head -c 300
-echo -e "\n\n3. ETH Price:"
-curl -s "$API/api/crypto/price?symbol=ETH" | head -c 300
-echo -e "\n\n4. Gas:"
-curl -s "$API/api/gas/base" | head -c 300
-echo -e "\n"
+# x402 Data API - curl Examples
+BASE_URL="https://your-api-url.coze.site"
+
+# Get GitHub trending repos
+curl "$BASE_URL/api/github/trending?language=python"
+
+# Get news
+curl "$BASE_URL/api/news?category=technology"
+
+# Get weather
+curl "$BASE_URL/api/weather?city=Beijing"
+
+# Check API health
+curl "$BASE_URL/health"
+
+# Discover x402 payment endpoints
+curl "$BASE_URL/.well-known/x402-discovery"

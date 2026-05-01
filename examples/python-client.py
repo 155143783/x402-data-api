@@ -1,48 +1,46 @@
-#!/usr/bin/env python3
-"""
-x402 Data API - Python Client Example
-Pay-per-request data API with USDC on Base chain
-"""
-
+"""x402 Data API Python Client Example"""
 import requests
-import json
 
-API_URL = "https://charleston-friendship-contributors-wallpapers.trycloudflare.com"
+BASE_URL = "https://your-api-url.coze.site"
+API_KEY = "your-api-key"  # Optional if using x402 payment
 
-def call_api(endpoint: str, params: dict = None):
-    """Call x402 API endpoint"""
+def get_github_trending(language="python"):
+    """Get trending GitHub repos"""
     response = requests.get(
-        f"{API_URL}/{endpoint}",
-        params=params or {},
-        headers={"Accept": "application/json"}
+        f"{BASE_URL}/api/github/trending",
+        params={"language": language},
+        headers={"Authorization": f"Bearer {API_KEY}"} if API_KEY else {}
+    )
+    if response.status_code == 402:
+        print("Payment required - x402 protocol active")
+        print(f"Payment info: {response.json()}")
+        return None
+    return response.json()
+
+def get_news(category="technology"):
+    """Get latest news"""
+    response = requests.get(
+        f"{BASE_URL}/api/news",
+        params={"category": category}
     )
     return response.json()
 
-def main():
-    print("=== x402 Data API Examples ===\n")
-    
-    # GitHub Trends
-    print("1. GitHub Trending (Python)")
-    result = call_api("api/github/trending", {"language": "python"})
-    print(json.dumps(result, indent=2)[:500])
-    print()
-    
-    # NPM Stats  
-    print("2. NPM Stats (express)")
-    result = call_api("api/npm/stats", {"package": "express"})
-    print(json.dumps(result, indent=2)[:500])
-    print()
-    
-    # Crypto Price
-    print("3. ETH Price")
-    result = call_api("api/crypto/price", {"symbol": "ETH"})
-    print(json.dumps(result, indent=2)[:500])
-    print()
-    
-    # Gas Tracker
-    print("4. Base Gas")
-    result = call_api("api/gas/base")
-    print(json.dumps(result, indent=2)[:500])
+def get_weather(city="Beijing"):
+    """Get weather data"""
+    response = requests.get(
+        f"{BASE_URL}/api/weather",
+        params={"city": city}
+    )
+    return response.json()
 
 if __name__ == "__main__":
-    main()
+    # Example: Get trending Python repos
+    trending = get_github_trending("python")
+    if trending:
+        for repo in trending.get("repos", [])[:5]:
+            print(f"- {repo['name']}: {repo.get('description', 'N/A')}")
+
+    # Example: Get weather
+    weather = get_weather("Shanghai")
+    if weather:
+        print(f"\nShanghai: {weather.get('temperature', 'N/A')}°C")

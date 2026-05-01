@@ -1,28 +1,28 @@
-# x402 Data API - Examples
+# x402 Data API Examples
 
-## Quick Start
+Quick start examples for the x402 Data API.
 
+## Python
 ```bash
-# Python
-python3 examples/python-client.py
-
-# Node.js
-node examples/node-client.js
-
-# cURL
-bash examples/curl-examples.sh
+pip install requests
+python python-client.py
 ```
 
-## Available Endpoints
-
-- `GET /api/github/trending?language=<lang>&since=<daily|weekly|monthly>`
-- `GET /api/npm/stats?package=<name>`
-- `GET /api/crypto/price?symbol=<SYMBOL>`
-- `GET /api/gas/base`
-
-## x402 Payment
-
-For paid endpoints, include x402 token:
+## Node.js
 ```bash
-curl -H "Authorization: Bearer <x402-token>" $API/endpoint
+node node-client.js
 ```
+
+## curl
+```bash
+bash curl-examples.sh
+```
+
+## API Endpoints
+| Endpoint | Description |
+|----------|-------------|
+| `/api/github/trending` | GitHub trending repos |
+| `/api/news` | Latest news |
+| `/api/weather` | Weather data |
+| `/health` | Health check |
+| `/.well-known/x402-discovery` | x402 payment discovery |
