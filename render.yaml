@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: x402-data-api
+    env: node
+    region: oregon
+    buildCommand: npm install --registry https://registry.npmmirror.com
+    startCommand: node src/server.js
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: NODE_ENV
+        value: production
